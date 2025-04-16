@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Monster - Receitas com Whey</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --verde-escuro: #006600;
+            --verde-claro: #00cc66;
+            --preto: #121212;
+            --cinza: #f5f5f5;
+            --branco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--preto);
+            color: var(--branco);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--verde-escuro);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 102, 0, 0.3);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .recipe-container {
+            background-color: var(--branco);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: var(--preto);
+        }
+
+        .recipe-title {
+            color: var(--verde-escuro);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--verde-claro);
+        }
+
+        .section-title {
+            color: var(--verde-escuro);
+            font-size: 1.3rem;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--verde-claro);
+        }
+
+        .ingredients-list, .preparation-steps {
+            padding-left: 20px;
+        }
+
+        .ingredients-list li, .preparation-steps li {
+            margin-bottom: 8px;
+        }
+
+        .notes {
+            background-color: var(--cinza);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-style: italic;
+            border-left: 4px solid var(--verde-claro);
+        }
+
+        .nutrition-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--verde-escuro);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nutrition-item {
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        .nutrition-value {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--verde-claro);
+        }
+
+        .btn-generate-pdf {
+            background-color: var(--verde-escuro);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: block;
+            margin: 40px auto;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 102, 0, 0.3);
+            font-weight: 600;
+        }
+
+        .btn-generate-pdf:hover {
+            background-color: var(--verde-claro);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 204, 102, 0.4);
+        }
+
+        .btn-generate-pdf i {
+            margin-right: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--branco);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .recipe-container {
+                padding: 20px;
+            }
+            
+            .nutrition-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .menu-filtragem {
+               text-align: center;
+               margin-bottom: 30px;
+            }
+
+            .menu-filtragem select {
+               padding: 10px 20px;
+               border-radius: 8px;
+               border: 1px solid var(--verde-claro);
+               font-size: 1rem;
+               background-color: var(--cinza);
+               color: var(--preto);
+               cursor: pointer;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>GREEN MONSTER</h1>
+            <div class="subtitle">RECEITAS PREMIUM COM WHEY PROTEIN</div>
+        </div>
+    </header>
+
+    <div class="menu-filtragem">
+        <label for="recipeSelector"><strong>Escolha a receita:</strong></label>
+        <select id="recipeSelector">
+            <option value="all">Todas</option>
+            <option value="receita-1">Panqueca de Whey Proteína</option>
+            <option value="receita-2">Bolo de Caneca com Whey</option>
+            <option value="receita-3">Barrinha de Proteína Caseira</option>
+            <option value="receita-4">Creme Proteico de Banana</option>
+            <option value="receita-5">Bolinho de Whey</option>
+            <option value="receita-6">Shake Monstro</option>
+            <option value="receita-7">Cookies de Whey</option>
+            <option value="receita-8">Muffin com Frutas</option>
+            <option value="receita-9">Brigadeiro Fit</option>
+            <option value="receita-10">Donuts Proteicos</option>
+        </select>
+    </div>
+    
+
+    <div class="container">
+        <div class="recipe-container" id="receita-1">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">Panqueca de Whey Proteína</h2>
+            
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>1 scoop de whey protein sabor baunilha</li>
+                <li>1 ovo</li>
+                <li>1/4 xícara de aveia em flocos finos</li>
+                <li>1/2 banana amassada</li>
+                <li>1 colher de chá de fermento em pó</li>
+            </ul>
+            
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Misture todos os ingredientes em uma tigela até obter uma massa homogênea.</li>
+                <li>Aqueça uma frigideira antiaderente em fogo médio.</li>
+                <li>Despeje porções da massa na frigideira.</li>
+                <li>Cozinhe por 2-3 minutos de cada lado até dourar.</li>
+            </ol>
+            
+            <div class="notes">
+                <strong>Dica:</strong> Sirva com frutas frescas e mel para um café da manhã completo.
+            </div>
+            
+            <div class="nutrition-info">
+                <div class="nutrition-item">
+                    <div>Calorias</div>
+                    <div class="nutrition-value">320 kcal</div>
+                </div>
+                <div class="nutrition-item">
+                    <div>Proteínas</div>
+                    <div class="nutrition-value">28g</div>
+                </div>
+                <div class="nutrition-item">
+                    <div>Carboidratos</div>
+                    <div class="nutrition-value">30g</div>
+                </div>
+                <div class="nutrition-item">
+                    <div>Gorduras</div>
+                    <div class="nutrition-value">8g</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-container" id="receita-2">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">Bolo de Caneca com Whey</h2>
+            
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>1 scoop de whey protein sabor chocolate</li>
+                <li>1 ovo</li>
+                <li>2 colheres de sopa de farinha de aveia</li>
+                <li>1 colher de chá de cacau em pó</li>
+                <li>1/4 colher de chá de fermento em pó</li>
+            </ul>
+            
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Misture todos os ingredientes em uma caneca grande.</li>
+                <li>Micro-ondas por 60-90 segundos.</li>
+                <li>Deixe esfriar por 1 minuto antes de servir.</li>
+            </ol>
+            
+            <div class="nutrition-info">
+                <div class="nutrition-item">
+                    <div>Calorias</div>
+                    <div class="nutrition-value">280 kcal</div>
+                </div>
+                <div class="nutrition-item">
+                    <div>Proteínas</div>
+                    <div class="nutrition-value">25g</div>
+                </div>
+                <div class="nutrition-item">
+                    <div>Carboidratos</div>
+                    <div class="nutrition-value">22g</div>
+                </div>
+                <div class="nutrition-item">
+                    <div>Gorduras</div>
+                    <div class="nutrition-value">7g</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-container" id="receita-3">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">🍫 Barrinha de Proteína Caseira</h2>
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>1 scoop de whey (baunilha ou chocolate)</li>
+                <li>2 colheres de aveia</li>
+                <li>1 colher de pasta de amendoim</li>
+                <li>1 colher de mel</li>
+                <li>Água só pra dar liga</li>
+            </ul>
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Misture tudo.</li>
+                <li>Modele em barrinhas.</li>
+                <li>Leve à geladeira por 30 minutos.</li>
+            </ol>
+            <div class="notes"><strong>Dica:</strong> Enrole no papel manteiga e prepare várias pra semana toda!</div>
+        </div>
+        
+        <div class="recipe-container" id="receita-4">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">🥣 Creme Proteico de Banana</h2>
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>1 banana amassada</li>
+                <li>1 scoop de whey</li>
+                <li>1 colher de aveia</li>
+                <li>1 pitada de canela</li>
+                <li>Água ou leite pra textura</li>
+            </ul>
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Misture tudo em um potinho com tampa.</li>
+                <li>Leve com você e consuma até 30 min antes do treino.</li>
+            </ol>
+            <div class="notes"><strong>Dica:</strong> Deixe preparado na geladeira e leve direto na mochila!</div>
+        </div>
+        
+        <div class="recipe-container" id="receita-5">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">🥜 Bolinho de Whey na Airfryer ou Micro</h2>
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>1 ovo</li>
+                <li>1 scoop de whey</li>
+                <li>1 colher de aveia ou farinha de aveia</li>
+                <li>1 colher de cacau em pó (opcional)</li>
+                <li>1/2 colher de fermento</li>
+            </ul>
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Misture tudo.</li>
+                <li>Coloque em forminhas de silicone.</li>
+                <li>Microondas por 2 min ou Airfryer por 8 min.</li>
+            </ol>
+            <div class="notes"><strong>Dica:</strong> Congele vários no domingo e esquente na hora do lanche!</div>
+        </div>
+        
+        <div class="recipe-container" id="receita-6">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">🥜🍌 Shake Monstro de Amendoim e Banana</h2>
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>1 scoop de whey baunilha</li>
+                <li>1 banana madura</li>
+                <li>1 colher de sopa de pasta de amendoim</li>
+                <li>200ml de leite (desnatado ou vegetal)</li>
+                <li>Cubos de gelo a gosto</li>
+            </ul>
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Bata tudo no liquidificador por 1 minuto.</li>
+            </ol>
+            <div class="notes"><strong>Dica:</strong> Sirva bem gelado num copo térmico — cremoso e power!</div>
+        </div>
+        
+        <div class="recipe-container" id="receita-7">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">🍪 Cookies de Whey</h2>
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>2 scoops de whey (baunilha ou chocolate)</li>
+                <li>1 ovo</li>
+                <li>2 colheres de aveia</li>
+                <li>1 colher de mel ou adoçante</li>
+                <li>1 colher de chá de fermento</li>
+            </ul>
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Misture tudo e forme bolinhas.</li>
+                <li>Asse por 10–12 min a 180°C.</li>
+            </ol>
+            <div class="notes"><strong>Dica:</strong> Guarde em pote fechado pra um snack rápido e proteico!</div>
+        </div>
+        
+        <div class="recipe-container" id="receita-8">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">🧁 Muffin de Whey com Frutas</h2>
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>1 scoop de whey baunilha</li>
+                <li>1 ovo</li>
+                <li>2 colheres de farinha de coco</li>
+                <li>1/2 banana amassada</li>
+                <li>Mirtilos ou morangos picados</li>
+            </ul>
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Misture tudo.</li>
+                <li>Distribua em forminhas de silicone.</li>
+                <li>Asse por 15 min a 180°C.</li>
+            </ol>
+            <div class="notes"><strong>Dica:</strong> Combine com chá gelado e tenha um lanche top e nutritivo!</div>
+        </div>
+        
+        <div class="recipe-container" id="receita-9">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">🍫 Brigadeiro Fit de Whey</h2>
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>1 scoop de whey chocolate</li>
+                <li>1 colher de cacau em pó</li>
+                <li>1 colher de leite em pó desnatado</li>
+                <li>2 colheres de água quente</li>
+            </ul>
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Misture tudo até dar ponto.</li>
+                <li>Se quiser mais cremoso, leve 20s ao microondas.</li>
+            </ol>
+            <div class="notes"><strong>Dica:</strong> Enrole e passe em cacau ou coco ralado sem açúcar!</div>
+        </div>
+        
+        <div class="recipe-container" id="receita-10">
+            <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
+            <h2 class="recipe-title">🍩 Donuts Proteicos</h2>
+            <h3 class="section-title"><i class="fas fa-list"></i> Ingredientes</h3>
+            <ul class="ingredients-list">
+                <li>1 scoop de whey baunilha</li>
+                <li>1 ovo</li>
+                <li>2 colheres de farinha de aveia</li>
+                <li>1/4 xícara de leite</li>
+                <li>1/2 colher de chá de fermento</li>
+            </ul>
+            <h3 class="section-title"><i class="fas fa-mortar-pestle"></i> Modo de Preparo</h3>
+            <ol class="preparation-steps">
+                <li>Misture tudo e leve para forminhas de donut ou cupcake.</li>
+                <li>Asse por 15 min a 180°C.</li>
+            </ol>
+            <div class="notes"><strong>Dica:</strong> Finalize com cobertura de pasta de amendoim ou iogurte!</div>
+        </div>
+        
+
+        <button class="btn-generate-pdf" id="generatePdf">
+            <i class="fas fa-file-pdf"></i> Gerar PDF
+        </button>
+    </div>
+
+    <footer>
+        <div class="container">
+            Green Monster Projects © 2025 - Receitas Fitness - <strong> site </strong> feito com 💚+☕+💪Whey Protein
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script>
+    document.getElementById('generatePdf').addEventListener('click', generatePdf);
+
+    document.getElementById('recipeSelector').addEventListener('change', function () {
+    const selected = this.value;
+    const allRecipes = document.querySelectorAll('.recipe-container');
+
+    allRecipes.forEach(div => {
+        const checkbox = div.querySelector('.recipe-selector');
+        if (selected === 'all') {
+            div.style.display = 'block';
+            checkbox.checked = false; // limpa seleção
+        } else if (div.id === selected) {
+            div.style.display = 'block';
+            checkbox.checked = true; // marca só a visível
+        } else {
+            div.style.display = 'none';
+            checkbox.checked = false; // desmarca e esconde
+        }
+    });
+});
+
+
+
+    function generatePdf() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const checkboxes = document.querySelectorAll('.recipe-selector:checked');
+
+        if (checkboxes.length === 0) {
+            alert("Selecione ao menos uma receita para gerar o PDF.");
+            return;
+        }
+
+        let receitas = Array.from(checkboxes).map(cb => cb.closest('.recipe-container'));
+        let pageCount = 0;
+
+        const gerarPagina = (index) => {
+            if (index >= receitas.length) {
+                doc.save('receitas-whey-selecionadas.pdf');
+                return;
+            }
+
+            html2canvas(receitas[index]).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = doc.internal.pageSize.getWidth() - 40;
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+
+                if (pageCount > 0) doc.addPage();
+                doc.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
+
+                pageCount++;
+                gerarPagina(index + 1);
+            });
+        };
+
+        gerarPagina(0);
+    }
+</script>
+
+</body>
+</html>
