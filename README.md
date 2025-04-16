@@ -4,7 +4,8 @@
 Um site responsivo, funcional e delicioso para quem curte treinar, comer bem e manter o foco! 💪  
 Aqui você encontra receitas fitness com whey protein, práticas, com emojis, dicas de preparo e até **PDFs personalizados** com suas receitas favoritas.
 
-![image](https://github.com/user-attachments/assets/bf751724-afe4-4117-bcc4-31bba9fc1b18)
+![image](https://github.com/user-attachments/assets/ca622ed4-b914-48e0-bdcb-1c90f8bed129)
+
 
 
 ---
@@ -22,7 +23,7 @@ Aqui você encontra receitas fitness com whey protein, práticas, com emojis, di
 ## 🖼️ Prévia
 
 > *(inserir prints quando subir no GitHub Pages ou Vercel)*  
-> Ou ver online: [link do projeto ao vivo](https://receitas-premium-whey.vercel.app/)
+> Ou ver online: [link do projeto ao vivo](https://green-monster-receitas.vercel.app/)
 
 ---
 
