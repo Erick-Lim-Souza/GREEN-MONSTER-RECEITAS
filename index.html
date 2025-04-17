@@ -1,203 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Monster - Receitas com Whey</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        :root {
-            --verde-escuro: #006600;
-            --verde-claro: #00cc66;
-            --preto: #121212;
-            --cinza: #f5f5f5;
-            --branco: #ffffff;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--preto);
-            color: var(--branco);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            background-color: var(--verde-escuro);
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-            margin-bottom: 30px;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 4px 12px rgba(0, 102, 0, 0.3);
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-top: 10px;
-        }
-
-        .recipe-container {
-            background-color: var(--branco);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            color: var(--preto);
-        }
-
-        .recipe-title {
-            color: var(--verde-escuro);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--verde-claro);
-        }
-
-        .section-title {
-            color: var(--verde-escuro);
-            font-size: 1.3rem;
-            margin: 20px 0 10px 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .section-title i {
-            margin-right: 10px;
-            color: var(--verde-claro);
-        }
-
-        .ingredients-list, .preparation-steps {
-            padding-left: 20px;
-        }
-
-        .ingredients-list li, .preparation-steps li {
-            margin-bottom: 8px;
-        }
-
-        .notes {
-            background-color: var(--cinza);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-style: italic;
-            border-left: 4px solid var(--verde-claro);
-        }
-
-        .nutrition-info {
-            display: flex;
-            justify-content: space-between;
-            background-color: var(--verde-escuro);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .nutrition-item {
-            text-align: center;
-            padding: 0 15px;
-        }
-
-        .nutrition-value {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--verde-claro);
-        }
-
-        .btn-generate-pdf {
-            background-color: var(--verde-escuro);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            display: block;
-            margin: 40px auto;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0, 102, 0, 0.3);
-            font-weight: 600;
-        }
-
-        .btn-generate-pdf:hover {
-            background-color: var(--verde-claro);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 204, 102, 0.4);
-        }
-
-        .btn-generate-pdf i {
-            margin-right: 10px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--branco);
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .recipe-container {
-                padding: 20px;
-            }
-            
-            .nutrition-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .menu-filtragem {
-               text-align: center;
-               margin-bottom: 30px;
-            }
-
-            .menu-filtragem select {
-               padding: 10px 20px;
-               border-radius: 8px;
-               border: 1px solid var(--verde-claro);
-               font-size: 1rem;
-               background-color: var(--cinza);
-               color: var(--preto);
-               cursor: pointer;
-            }
-
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Receitas Monstro com Whey 🥤</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>GREEN MONSTER</h1>
-            <div class="subtitle">RECEITAS PREMIUM COM WHEY PROTEIN</div>
-        </div>
-    </header>
+        <h1>Green Monster Nutri 💚</h1>
+        <p class="subtitle">Receitas com Whey Protein para monstros de verdade 💪</p>
+      </header>
 
-    <div class="menu-filtragem">
-        <label for="recipeSelector"><strong>Escolha a receita:</strong></label>
-        <select id="recipeSelector">
+      <div class="container">
+        <div class="menu-filtragem">
+          <label for="recipeSelector">Escolha a receita:</label>
+          <select id="recipeSelector">
             <option value="all">Todas</option>
             <option value="receita-1">Panqueca de Whey Proteína</option>
             <option value="receita-2">Bolo de Caneca com Whey</option>
@@ -209,10 +29,47 @@
             <option value="receita-8">Muffin com Frutas</option>
             <option value="receita-9">Brigadeiro Fit</option>
             <option value="receita-10">Donuts Proteicos</option>
-        </select>
-    </div>
-    
+            <!-- Receitas adicionadas via JS -->
+          </select>
+        </div>
 
+
+
+<!-- Botão flutuante -->
+<button class="btn-nova-receita-flutuante" onclick="abrirFormulario()">➕ Nova Receita</button>
+
+<!-- POPUP DO FORMULÁRIO -->
+<div id="popupNovaReceita" class="form-popup" style="display: none;">
+  <div class="form-container">
+    <span class="close-btn" onclick="fecharFormulario()">❌</span>
+    <h2>🍽️ <strong>Nova Receita Monstra</strong></h2>
+    <p>Adicione ingredientes, preparo e info nutricional! 💪</p>
+
+    <form id="novaReceitaForm">
+      <label for="novaTitulo">Nome da Receita</label>
+      <input type="text" id="novaTitulo" required />
+
+      <label for="novaIngredientes">Ingredientes</label>
+      <textarea id="novaIngredientes" required></textarea>
+
+      <label for="novaPreparo">Modo de Preparo</label>
+      <textarea id="novaPreparo" required></textarea>
+
+      <label for="novaDica">Dica opcional</label>
+      <textarea id="novaDica"></textarea>
+
+      <label for="novaInfoNutri">Informação Nutricional</label>
+      <input type="text" id="novaInfoNutri" />
+
+      <button type="button" class="btn-enviar" onclick="adicionarNovaReceita()">Salvar Receita</button>
+      <p id="feedbackMsg"></p>
+    </form>
+  </div>
+</div>
+
+
+
+    <!-- Container das receitas (aqui ficam as receitas que já existem) -->
     <div class="container">
         <div class="recipe-container" id="receita-1">
             <input type="checkbox" class="recipe-selector" style="margin-bottom: 10px;"> Selecionar para PDF
@@ -451,7 +308,6 @@
             </ol>
             <div class="notes"><strong>Dica:</strong> Finalize com cobertura de pasta de amendoim ou iogurte!</div>
         </div>
-        
 
         <button class="btn-generate-pdf" id="generatePdf">
             <i class="fas fa-file-pdf"></i> Gerar PDF
@@ -460,70 +316,15 @@
 
     <footer>
         <div class="container">
-            Green Monster Projects © 2025 - Receitas Fitness - <strong>Projeto</strong> feito com 💚+☕+💪Whey Protein
+            Green Monster Projects © 2025 - Receitas Fitness - <strong>contruido</strong> com 💚+☕+💪Whey Protein
         </div>
     </footer>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script>
-    document.getElementById('generatePdf').addEventListener('click', generatePdf);
-
-    document.getElementById('recipeSelector').addEventListener('change', function () {
-    const selected = this.value;
-    const allRecipes = document.querySelectorAll('.recipe-container');
-
-    allRecipes.forEach(div => {
-        const checkbox = div.querySelector('.recipe-selector');
-        if (selected === 'all') {
-            div.style.display = 'block';
-            checkbox.checked = false; // limpa seleção
-        } else if (div.id === selected) {
-            div.style.display = 'block';
-            checkbox.checked = true; // marca só a visível
-        } else {
-            div.style.display = 'none';
-            checkbox.checked = false; // desmarca e esconde
-        }
-    });
-});
-
-
-
-    function generatePdf() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        const checkboxes = document.querySelectorAll('.recipe-selector:checked');
-
-        if (checkboxes.length === 0) {
-            alert("Selecione ao menos uma receita para gerar o PDF.");
-            return;
-        }
-
-        let receitas = Array.from(checkboxes).map(cb => cb.closest('.recipe-container'));
-        let pageCount = 0;
-
-        const gerarPagina = (index) => {
-            if (index >= receitas.length) {
-                doc.save('receitas-whey-selecionadas.pdf');
-                return;
-            }
-
-            html2canvas(receitas[index]).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const imgWidth = doc.internal.pageSize.getWidth() - 40;
-                const imgHeight = canvas.height * imgWidth / canvas.width;
-
-                if (pageCount > 0) doc.addPage();
-                doc.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
-
-                pageCount++;
-                gerarPagina(index + 1);
-            });
-        };
-
-        gerarPagina(0);
-    }
-</script>
+    <!-- No final do <body>, ANTES de fechar </body> -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="script.js"></script> <!-- SEM 'defer' agora -->
 
 </body>
 </html>
