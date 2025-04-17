@@ -4,9 +4,7 @@
 Um site responsivo, funcional e delicioso para quem curte treinar, comer bem e manter o foco! 💪  
 Aqui você encontra receitas fitness com whey protein, práticas, com emojis, dicas de preparo e até **PDFs personalizados** com suas receitas favoritas.
 
-![image](https://github.com/user-attachments/assets/ca622ed4-b914-48e0-bdcb-1c90f8bed129)
-
-
+![image](https://github.com/user-attachments/assets/435e3382-fb41-45aa-9b2c-e0ca9e325221)
 
 ---
 
@@ -18,16 +16,39 @@ Aqui você encontra receitas fitness com whey protein, práticas, com emojis, di
 - ✅ Estilo clean, responsivo e pronto pra mobile
 - ✅ Emojis, dicas e muito estilo 💚
 
+## 🚀 Funcionalidades após ATUALIZAÇÕES
+
+- ✅ Visualizar receitas fitness com whey
+- ✅ Filtrar receitas por nome
+- ✅ Selecionar e gerar PDF das receitas escolhidas
+- ✅ Estilo visual Green Monster 💚 (tema escuro + neon)
+- ✅ Separação do projeto em arquivos HTML, CSS e JS
+- ✅ **Botão flutuante para adicionar novas receitas**
+- ✅ **Formulário em popup com campos para: ingredientes, preparo, dica e info nutricional**
+- ✅ **Feedback visual ao salvar receita**
+
+## 🛠 Atualizações Recentes (abril/2025)
+
+- 🆕 **Adicionado botão flutuante “➕ Nova Receita” com abertura de popup**
+- 🆕 **Formulário agora é exibido como modal com campos completos para nova receita**
+- 🆕 **Mensagem de confirmação ao salvar receita com sucesso**
+- 🔧 Corrigido bug no filtro de seleção de receitas
+- 🧼 Refatoração de código JS: funções globais organizadas e mais intuitivas
+- 📁 Estrutura separada: `index.html`, `style.css` e `script.js` para melhor manutenção
+
 ---
 
 ## 🖼️ Prévia
-
-> *(inserir prints quando subir no GitHub Pages ou Vercel)*  
-> Ou ver online: [link do projeto ao vivo](https://green-monster-receitas.vercel.app/)
+> Ver online: [link do projeto ao vivo](https://green-monster-receitas.vercel.app/)
 
 ---
 
 ## 🧑‍🍳 Como usar
+
+1. Clone o repositório ou baixe o ZIP
+2. Abra `index.html` no navegador
+3. Adicione novas receitas, filtre ou gere PDF
+4. Modo Green Monster ativado! 💪🥤
 
 1. **Clone o projeto**
    ```bash
